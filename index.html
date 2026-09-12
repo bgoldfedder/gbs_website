@@ -3,78 +3,613 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gold Brand Software, LLC</title>
-<meta name="description" content="Gold Brand Software, LLC — custom software design and development. Herndon, Virginia.">
+<title>Gold Brand Software, LLC — Software Architecture &amp; Development Consulting</title>
+<meta name="description" content="Gold Brand Software, LLC is the independent consulting practice of Brandon Goldfedder: software architecture, hands-on development, and technical leadership for regulated data systems, research platforms, and long-lived enterprise software. Herndon, Virginia.">
+<link rel="canonical" href="https://goldbrandsoftware.com/">
+<meta name="author" content="Brandon Goldfedder">
+<meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gold Brand Software, LLC">
+<meta property="og:title" content="Gold Brand Software, LLC">
+<meta property="og:description" content="Software architecture, hands-on development, and technical leadership. Independent practice, Herndon, Virginia. Established 2007.">
+<meta property="og:url" content="https://goldbrandsoftware.com/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='12'%20fill='%238a6a1f'/%3E%3Ctext%20x='32'%20y='45'%20font-family='Georgia,serif'%20font-size='36'%20font-weight='700'%20text-anchor='middle'%20fill='%23fbfaf7'%3EG%3C/text%3E%3C/svg%3E">
 <style>
   :root{
-    --bg:#ffffff; --fg:#16181d; --muted:#5b6472; --line:#e3e6ea; --accent:#1f5fa8;
+    --bg:#fbfaf7;
+    --surface:#f4f1e9;
+    --fg:#1a1a18;
+    --muted:#6b6a63;
+    --line:#e4e0d6;
+    --line-soft:#eeebe3;
+    --accent:#8a6a1f;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   @media (prefers-color-scheme: dark){
-    :root{ --bg:#0f1115; --fg:#e8eaed; --muted:#9aa3b0; --line:#262a31; --accent:#7aa9e6; }
+    :root{
+      --bg:#121211;
+      --surface:#1a1a18;
+      --fg:#ece9e2;
+      --muted:#9a968c;
+      --line:#2b2a25;
+      --line-soft:#232220;
+      --accent:#c9a54e;
+    }
   }
   *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
   body{
     margin:0; background:var(--bg); color:var(--fg);
-    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
+    font:17px/1.7 var(--sans);
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
-  .wrap{max-width:680px; margin:0 auto; padding:64px 24px 48px}
-  header{border-bottom:1px solid var(--line); padding-bottom:28px; margin-bottom:36px}
-  h1{font-size:1.75rem; letter-spacing:-.01em; margin:0 0 6px}
-  .tag{color:var(--muted); margin:0; font-size:1.05rem}
-  h2{font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
-     margin:36px 0 10px; font-weight:600}
-  p{margin:0 0 14px}
-  a{color:var(--accent)}
-  dl{margin:0; display:grid; grid-template-columns:96px 1fr; gap:8px 16px}
-  dt{color:var(--muted)}
-  dd{margin:0}
-  address{font-style:normal}
-  footer{margin-top:48px; padding-top:20px; border-top:1px solid var(--line);
-         color:var(--muted); font-size:.875rem}
-  @media (max-width:480px){
-    .wrap{padding:40px 20px}
-    dl{grid-template-columns:1fr; gap:2px 0}
-    dt{margin-top:10px}
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 28px}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 35%, transparent)}
+  a:hover{border-bottom-color:var(--accent)}
+  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+
+  .skip{position:absolute; left:-9999px}
+  .skip:focus{left:16px; top:16px; z-index:9; background:var(--surface); padding:10px 14px; border:1px solid var(--line)}
+
+  /* ---------- masthead ---------- */
+  header.masthead{padding:72px 0 0}
+  .mark{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:9px; background:var(--accent);
+    color:var(--bg); font:700 24px/1 var(--serif); margin-bottom:26px;
+  }
+  h1{
+    font:400 2.5rem/1.15 var(--serif); letter-spacing:-.015em;
+    margin:0 0 14px; text-wrap:balance;
+  }
+  .lede-tag{
+    font:1.15rem/1.5 var(--serif); color:var(--fg); margin:0 0 22px; max-width:34ch;
+  }
+  .facts{
+    display:flex; flex-wrap:wrap; gap:8px 22px; margin:0 0 34px; padding:0; list-style:none;
+    font-size:.8125rem; letter-spacing:.04em; text-transform:uppercase; color:var(--muted);
+  }
+  .facts li{display:flex; align-items:center; gap:22px}
+  .facts li+li::before{content:""; width:4px; height:4px; border-radius:50%; background:var(--accent); opacity:.65; margin-left:-13px}
+
+  nav.jump{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:14px 0}
+  nav.jump ul{display:flex; flex-wrap:wrap; gap:6px 26px; margin:0; padding:0; list-style:none}
+  nav.jump a{
+    font-size:.8125rem; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--muted); border-bottom:none;
+  }
+  nav.jump a:hover{color:var(--accent)}
+
+  /* ---------- sections ---------- */
+  section{padding:56px 0; border-bottom:1px solid var(--line-soft)}
+  section:last-of-type{border-bottom:none}
+  h2{
+    font:600 .75rem/1.4 var(--sans); text-transform:uppercase; letter-spacing:.12em;
+    color:var(--accent); margin:0 0 26px;
+  }
+  h3{font:600 1rem/1.45 var(--sans); margin:0 0 6px; letter-spacing:-.005em}
+  p{margin:0 0 18px; max-width:66ch}
+  p:last-child{margin-bottom:0}
+  .intro p{font:1.0625rem/1.75 var(--sans)}
+  .intro > p:first-of-type{font:1.1875rem/1.65 var(--serif)}
+
+  /* capability grid */
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:30px 40px}
+  .grid p{font-size:.9375rem; line-height:1.65; color:var(--muted); margin:0; max-width:none}
+
+  /* selected work */
+  .work{margin:0; padding:0; list-style:none}
+  .work > li{padding:22px 0; border-top:1px solid var(--line-soft)}
+  .work > li:first-child{border-top:none; padding-top:0}
+  .work h3{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px}
+  .era{
+    font:500 .6875rem/1 var(--sans); letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:4px 9px;
+    white-space:nowrap;
+  }
+  .work p{font-size:.9375rem; line-height:1.7; color:var(--muted); margin:0}
+
+  /* principles */
+  .principles{margin:0; padding:0; list-style:none; display:grid; gap:24px}
+  .principles li{padding-left:20px; border-left:2px solid var(--accent)}
+  .principles strong{display:block; font-weight:600; margin-bottom:3px}
+  .principles span{color:var(--muted); font-size:.9375rem; line-height:1.65}
+
+  /* data tables */
+  .rows{display:grid; grid-template-columns:130px 1fr; gap:0 24px}
+  .rows dt{
+    font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+    padding:13px 0; border-top:1px solid var(--line-soft);
+  }
+  .rows dd{margin:0; padding:13px 0; border-top:1px solid var(--line-soft); font-size:.9375rem}
+  .rows dt:first-of-type, .rows dd:first-of-type{border-top:none}
+  .rows .sub{display:block; color:var(--muted); font-size:.875rem}
+
+  .cred{margin:34px 0 0; padding:0; list-style:none}
+  .cred li{
+    display:grid; grid-template-columns:76px 1fr; gap:0 24px;
+    padding:13px 0; border-top:1px solid var(--line-soft); font-size:.9375rem;
+  }
+  .cred .yr{color:var(--muted); font-variant-numeric:tabular-nums; font-size:.875rem}
+  .cred .src{display:block; color:var(--muted); font-size:.875rem}
+  .cite{font-style:italic}
+  .subhead{
+    font:600 .6875rem/1 var(--sans); letter-spacing:.1em; text-transform:uppercase;
+    color:var(--muted); margin:40px 0 0;
+  }
+
+  /* contact */
+  .contact{display:grid; grid-template-columns:1fr 1fr; gap:34px 40px; align-items:start}
+  .contact h3{font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:10px}
+  .contact .big{font:1.0625rem/1.5 var(--sans)}
+  address{font-style:normal; font-size:.9375rem; line-height:1.65; color:var(--muted)}
+
+  footer{
+    padding:30px 0 56px; border-top:1px solid var(--line);
+    color:var(--muted); font-size:.8125rem; line-height:1.8;
+    display:flex; flex-wrap:wrap; gap:6px 24px; justify-content:space-between;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:640px){
+    body{font-size:16px}
+    .wrap{padding:0 20px}
+    header.masthead{padding-top:48px}
+    h1{font-size:2rem}
+    section{padding:42px 0}
+    .grid{grid-template-columns:1fr; gap:26px}
+    .contact{grid-template-columns:1fr}
+    .rows{grid-template-columns:1fr; gap:0}
+    .rows dt{padding:14px 0 0; border-top:1px solid var(--line-soft)}
+    .rows dd{padding:2px 0 14px; border-top:none}
+    .rows dd:first-of-type{border-top:none}
+    .cred li{grid-template-columns:1fr; gap:2px}
+    .cred .yr{order:2}
+  }
+
+  /* ---------- print ---------- */
+  @media print{
+    :root{--bg:#fff; --fg:#000; --muted:#444; --line:#bbb; --line-soft:#ddd; --accent:#6b5214}
+    body{font-size:10.5pt}
+    nav.jump, .skip{display:none}
+    .wrap{max-width:none; padding:0}
+    section{padding:18pt 0; break-inside:avoid}
+    a{border-bottom:none}
+    a[href^="mailto:"]::after{content:" (" attr(href) ")"; font-size:9pt; color:#444}
   }
 </style>
 </head>
 <body>
+
+<a class="skip" href="#main">Skip to content</a>
+
 <div class="wrap">
 
-  <header>
+  <header class="masthead">
+    <div class="mark" aria-hidden="true">G</div>
     <h1>Gold Brand Software, LLC</h1>
-    <p class="tag">Custom software design and development.</p>
+    <p class="lede-tag">Software architecture, hands-on development, and technical leadership.</p>
+    <ul class="facts">
+      <li>Independent practice</li>
+      <li>Herndon, Virginia</li>
+      <li>Established 2007</li>
+    </ul>
+    <nav class="jump" aria-label="Sections">
+      <ul>
+        <li><a href="#practice">Practice</a></li>
+        <li><a href="#capabilities">Capabilities</a></li>
+        <li><a href="#work">Selected work</a></li>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#background">Background</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <h2>About</h2>
-  <p>
-    Gold Brand Software, LLC is an independent software development company
-    based in Herndon, Virginia. We build custom applications, data systems,
-    and mobile software for clients across commercial and government sectors.
-  </p>
+  <main id="main">
 
-  <h2>Contact</h2>
-  <dl>
-    <dt>Email</dt>
-    <dd><a href="mailto:brandon@goldbrandsoftware.com">brandon@goldbrandsoftware.com</a></dd>
+    <section id="practice" class="intro" aria-labelledby="h-practice">
+      <h2 id="h-practice">The practice</h2>
+      <p>
+        Gold Brand Software is the independent consulting practice of Brandon Goldfedder —
+        a software engineer with more than thirty-five years of building systems that have to
+        be right: regulated clinical data, federally funded research platforms, and the
+        long-lived enterprise software a business actually runs on.
+      </p>
+      <p>
+        Engagements tend to be long and hands-on. I design the system, write production code,
+        deploy it, and stay accountable for it in operation — often for years. That means the
+        person making the architectural calls is the same person who has to live with them,
+        which is the point.
+      </p>
+      <p>
+        Work spans commercial and government-funded sectors, and has included lead-architect,
+        principal-investigator, and fractional-CTO roles alongside straight development.
+      </p>
+    </section>
 
-    <dt>Address</dt>
-    <dd>
-      <address>
-        1282 Mason Mill Court<br>
-        Herndon, VA 20170<br>
-        United States
-      </address>
-    </dd>
-  </dl>
+    <section id="capabilities" aria-labelledby="h-cap">
+      <h2 id="h-cap">Capabilities</h2>
+      <div class="grid">
+        <div>
+          <h3>Architecture &amp; technical leadership</h3>
+          <p>
+            System design, technology selection, and the expensive trade-off calls. Setting
+            technical direction, reviewing subcontractor and vendor work, and carrying
+            architectural responsibility on funded research programs.
+          </p>
+        </div>
+        <div>
+          <h3>Regulated &amp; clinical data systems</h3>
+          <p>
+            HIPAA-regulated registries and reporting. Multi-tenant data models,
+            auditability, de-identification, and the operational discipline that regulated
+            health data requires rather than merely claims.
+          </p>
+        </div>
+        <div>
+          <h3>Backend &amp; platform engineering</h3>
+          <p>
+            Python service tiers, asynchronous web frameworks, REST APIs, relational data
+            modeling, and plugin architectures that let a single codebase serve many
+            customer-specific deployments.
+          </p>
+        </div>
+        <div>
+          <h3>Data-dense web applications</h3>
+          <p>
+            TypeScript and Angular front ends for people who live in the software all day:
+            large grids, form and document editors, configurable report builders, and
+            workflow-heavy interfaces.
+          </p>
+        </div>
+        <div>
+          <h3>Applied ML &amp; reasoning under uncertainty</h3>
+          <p>
+            Bayesian networks, probabilistic and graphical models, forecasting and
+            prediction markets, expert and rule-based systems, and pragmatic use of
+            large language models where they earn their cost.
+          </p>
+        </div>
+        <div>
+          <h3>Delivery &amp; operations</h3>
+          <p>
+            Docker-based build and deployment pipelines, per-customer configuration builds,
+            Unix administration, and ownership of 24×7 production systems including
+            zero-downtime release strategy.
+          </p>
+        </div>
+        <div>
+          <h3>Training &amp; mentoring</h3>
+          <p>
+            Design patterns, object-oriented design, reuse, and testing practice. Courses
+            developed and taught at Fortune 500 engineering organizations, defense primes,
+            and universities.
+          </p>
+        </div>
+        <div>
+          <h3>Due diligence &amp; early-stage support</h3>
+          <p>
+            Technical assessment, architecture review, and executive technical roles for
+            startups during funding pursuits — including the unglamorous work of making a
+            codebase legible to an outside evaluator.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" aria-labelledby="h-work">
+      <h2 id="h-work">Selected work</h2>
+      <p style="color:var(--muted); font-size:.9375rem; margin-bottom:28px">
+        Client and program names are omitted. Descriptions are deliberately general.
+      </p>
+      <ul class="work">
+        <li>
+          <h3>Clinical registry and reporting platform <span class="era">Current</span></h3>
+          <p>
+            Architecture and lead development of a HIPAA-regulated trauma registry platform:
+            Python service tier, Angular portal, a scripting and reporting engine for
+            clinician-authored reports, and a build system that tailors and deploys a distinct
+            configuration per hospital site. Ongoing, multi-year engagement.
+          </p>
+        </li>
+        <li>
+          <h3>Collaborative forecasting research platform <span class="era">Government-funded R&amp;D</span></h3>
+          <p>
+            Senior architect and technical lead on a federally funded research program in
+            combinatorial prediction markets, run jointly with a university research center.
+            Owned technical design, 24×7 operations, and oversight of all subcontracted
+            development. The underlying market-making approach was published in a
+            peer-reviewed AI journal.
+          </p>
+        </li>
+        <li>
+          <h3>Enterprise workflow automation, telecommunications <span class="era">Patented</span></h3>
+          <p>
+            Chief architect of a distributed, component-based system for managing and tracking
+            telecommunications service orders — CORBA services, web front end, Oracle back end.
+            The design was awarded two United States patents.
+          </p>
+        </li>
+        <li>
+          <h3>Uncertainty-management R&amp;D and commercial delivery <span class="era">VP Engineering</span></h3>
+          <p>
+            Led the engineering organization for a research firm working in Bayesian networks
+            and uncertainty management across Java, Python, and C++. Principal investigator on
+            several government and commercial contracts in the $1–3M range, and author of an
+            agile methodology adapted to the realities of an R&amp;D environment.
+          </p>
+        </li>
+        <li>
+          <h3>Contact center and CRM transformation <span class="era">CRM business unit</span></h3>
+          <p>
+            Ran a consulting firm's CRM business unit — sales, delivery, and architectural
+            oversight. Engagements included a national publisher's contact center (data
+            warehousing, legacy integration, CTI/IVR) and a satellite communications operator
+            running 5,000+ concurrent agents, where the initial analysis identified roughly
+            $500K per month in recoverable cost. Compensation-management software built by the
+            unit was later OEM'd by a major CRM vendor.
+          </p>
+        </li>
+        <li>
+          <h3>Medical injury coding expert system <span class="era">Sole designer</span></h3>
+          <p>
+            Designed and built a PC-based expert system that coded injuries against standard
+            medical coding systems, used in trauma centers and hospitals worldwide. Written in
+            C, C++, and assembly on top of a purpose-built rule language — the start of a long
+            run in trauma and clinical software.
+          </p>
+        </li>
+        <li>
+          <h3>Reusable components for defense programs <span class="era">Ada era</span></h3>
+          <p>
+            Reusable Ada component libraries exceeding 500,000 lines, a reuse-library
+            cataloging tool, and a UI builder for Ada/X-Window applications, delivered to
+            defense primes and integrators. Also served as director of training for the same
+            firm's software engineering curriculum.
+          </p>
+        </li>
+        <li>
+          <h3>Online gaming integrity <span class="era">Patented</span></h3>
+          <p>
+            Behavioral models for detecting collusion between players in online games, based on
+            conditional play behavior. Awarded a United States patent.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="approach" aria-labelledby="h-approach">
+      <h2 id="h-approach">How I work</h2>
+      <ul class="principles">
+        <li>
+          <strong>Ownership over deliverables.</strong>
+          <span>
+            I would rather be accountable for a system in production for a decade than hand
+            over a document and leave. Most of my engagements have outlasted the contract that
+            started them.
+          </span>
+        </li>
+        <li>
+          <strong>Enough design, then working software.</strong>
+          <span>
+            Sufficient architecture to avoid the mistakes that are expensive to undo, and no
+            more. The rest is learned by building the thing and watching it run.
+          </span>
+        </li>
+        <li>
+          <strong>Write down the reasoning, not just the result.</strong>
+          <span>
+            Decisions, trade-offs, and the constraints that forced them — recorded in a form
+            the next engineer can actually use. Patterns are a means of communication before
+            they are a means of construction.
+          </span>
+        </li>
+        <li>
+          <strong>Small footprint, low coordination cost.</strong>
+          <span>
+            One engineer who can carry architecture, implementation, deployment, and operations
+            removes a great deal of hand-off overhead. Where a team is needed, I would rather
+            build and lead a small one.
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="background" aria-labelledby="h-bg">
+      <h2 id="h-bg">Background</h2>
+      <dl class="rows">
+        <dt>Now</dt>
+        <dd>
+          Consultant and proprietor, Gold Brand Software, LLC
+          <span class="sub">2007 – present · Herndon, Virginia</span>
+        </dd>
+
+        <dt>Previously</dt>
+        <dd>
+          Vice President of Engineering, artificial-intelligence R&amp;D firm ·
+          Vice President, national consulting firm ·
+          Chief Technology Officer, technology consultancy ·
+          Director of Training, software engineering firm
+          <span class="sub">1992 – 2007 · Northern Virginia and Maryland</span>
+        </dd>
+
+        <dt>Earlier</dt>
+        <dd>
+          Communications-computer officer, United States Air Force
+          <span class="sub">Systems programming and analysis; user-interface standards committee</span>
+        </dd>
+
+        <dt>Education</dt>
+        <dd>
+          M.S.E., Computer Science Engineering · B.S.E., Electrical &amp; Computer Science
+          Engineering
+          <span class="sub">Johns Hopkins University</span>
+        </dd>
+
+        <dt>Languages</dt>
+        <dd>
+          Python, TypeScript, JavaScript, Java, C, C++, Ada, SQL
+          <span class="sub">Plus a rule language of my own design, and a long tail of the obsolete</span>
+        </dd>
+
+        <dt>Domains</dt>
+        <dd>
+          Healthcare and trauma registries · government research · telecommunications ·
+          CRM and contact center · e-gaming · defense
+        </dd>
+      </dl>
+
+      <p class="subhead">United States patents</p>
+      <ul class="cred">
+        <li>
+          <span class="yr">2002</span>
+          <span>
+            System and method for managing workflow for processing service orders in
+            telecommunications
+            <span class="src">No. 6,349,238</span>
+          </span>
+        </li>
+        <li>
+          <span class="yr">2005</span>
+          <span>
+            System and method for processing and tracking telecommunications service orders
+            <span class="src">No. 6,937,993</span>
+          </span>
+        </li>
+        <li>
+          <span class="yr">2009</span>
+          <span>
+            System and method for detecting collusion in online gaming via conditional behavior
+            <span class="src">No. 7,604,541</span>
+          </span>
+        </li>
+      </ul>
+
+      <p class="subhead">Selected publications</p>
+      <ul class="cred">
+        <li>
+          <span class="yr">2018</span>
+          <span>
+            Graphical Model Market Maker for Combinatorial Prediction Markets
+            <span class="src">Artificial Intelligence Review</span>
+          </span>
+        </li>
+        <li>
+          <span class="yr">2001</span>
+          <span>
+            <span class="cite">The Joy of Patterns: Using Patterns for Enterprise Development</span>
+            <span class="src">Addison-Wesley</span>
+          </span>
+        </li>
+        <li>
+          <span class="yr">1998</span>
+          <span>
+            Patterns and System Development
+            <span class="src">Advances in Computers, Vol. 47</span>
+          </span>
+        </li>
+        <li>
+          <span class="yr">1996</span>
+          <span>
+            A Training Experience with Patterns
+            <span class="src">Communications of the ACM</span>
+          </span>
+        </li>
+        <li>
+          <span class="yr">1993</span>
+          <span>
+            An Internal Approach to Testing Horizontally Reusable Components
+            <span class="src">Software Technology Conference</span>
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="contact" aria-labelledby="h-contact">
+      <h2 id="h-contact">Contact</h2>
+      <div class="contact">
+        <div>
+          <h3>Inquiries</h3>
+          <p class="big"><a href="mailto:brandon@goldbrandsoftware.com">brandon@goldbrandsoftware.com</a></p>
+          <p style="color:var(--muted); font-size:.9375rem">
+            Available for architecture review, fractional technical leadership, and
+            development engagements. Happy to say plainly when something is not a fit.
+          </p>
+        </div>
+        <div>
+          <h3>Office</h3>
+          <address>
+            Gold Brand Software, LLC<br>
+            1282 Mason Mill Court<br>
+            Herndon, VA 20170<br>
+            United States
+          </address>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
-    &copy; <span id="y">2026</span> Gold Brand Software, LLC. All rights reserved.<br>
-    D&#8209;U&#8209;N&#8209;S&reg; 007919817
+    <span>&copy; <span id="y">2026</span> Gold Brand Software, LLC. A Virginia limited liability company.</span>
+    <span>D&#8209;U&#8209;N&#8209;S&reg; 007919817</span>
   </footer>
 
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Gold Brand Software, LLC",
+  "alternateName": "Gold Brand Software",
+  "url": "https://goldbrandsoftware.com/",
+  "email": "brandon@goldbrandsoftware.com",
+  "description": "Independent software architecture and development consulting practice. Regulated clinical data systems, research platforms, backend and platform engineering, and technical leadership.",
+  "foundingDate": "2007",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "DUNS",
+    "value": "007919817"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1282 Mason Mill Court",
+    "addressLocality": "Herndon",
+    "addressRegion": "VA",
+    "postalCode": "20170",
+    "addressCountry": "US"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Brandon Goldfedder",
+    "jobTitle": "Consultant and Proprietor",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Johns Hopkins University"
+    },
+    "knowsAbout": [
+      "Software architecture",
+      "Python",
+      "TypeScript",
+      "Angular",
+      "HIPAA-regulated data systems",
+      "Bayesian networks",
+      "Design patterns",
+      "Docker",
+      "Machine learning"
+    ]
+  },
+  "knowsLanguage": "en",
+  "areaServed": "US"
+}
+</script>
 <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
 </body>
 </html>
