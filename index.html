@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold Brand Software, LLC</title>
+<meta name="description" content="Gold Brand Software, LLC — custom software design and development. Herndon, Virginia.">
+<style>
+  :root{
+    --bg:#ffffff; --fg:#16181d; --muted:#5b6472; --line:#e3e6ea; --accent:#1f5fa8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0f1115; --fg:#e8eaed; --muted:#9aa3b0; --line:#262a31; --accent:#7aa9e6; }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px; margin:0 auto; padding:64px 24px 48px}
+  header{border-bottom:1px solid var(--line); padding-bottom:28px; margin-bottom:36px}
+  h1{font-size:1.75rem; letter-spacing:-.01em; margin:0 0 6px}
+  .tag{color:var(--muted); margin:0; font-size:1.05rem}
+  h2{font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted);
+     margin:36px 0 10px; font-weight:600}
+  p{margin:0 0 14px}
+  a{color:var(--accent)}
+  dl{margin:0; display:grid; grid-template-columns:96px 1fr; gap:8px 16px}
+  dt{color:var(--muted)}
+  dd{margin:0}
+  address{font-style:normal}
+  footer{margin-top:48px; padding-top:20px; border-top:1px solid var(--line);
+         color:var(--muted); font-size:.875rem}
+  @media (max-width:480px){
+    .wrap{padding:40px 20px}
+    dl{grid-template-columns:1fr; gap:2px 0}
+    dt{margin-top:10px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Gold Brand Software, LLC</h1>
+    <p class="tag">Custom software design and development.</p>
+  </header>
+
+  <h2>About</h2>
+  <p>
+    Gold Brand Software, LLC is an independent software development company
+    based in Herndon, Virginia. We build custom applications, data systems,
+    and mobile software for clients across commercial and government sectors.
+  </p>
+
+  <h2>Contact</h2>
+  <dl>
+    <dt>Email</dt>
+    <dd><a href="mailto:brandon@goldbrandsoftware.com">brandon@goldbrandsoftware.com</a></dd>
+
+    <dt>Address</dt>
+    <dd>
+      <address>
+        1282 Mason Mill Court<br>
+        Herndon, VA 20170<br>
+        United States
+      </address>
+    </dd>
+  </dl>
+
+  <footer>
+    &copy; <span id="y">2026</span> Gold Brand Software, LLC. All rights reserved.<br>
+    D&#8209;U&#8209;N&#8209;S&reg; 007919817
+  </footer>
+
+</div>
+<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
